@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>fufuziks</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --mono: 'Roboto Mono', monospace;
+      --text: #e8e8e8;
+      --muted: #666;
+      --card-bg: #0a0a0a; /* Строгий темный цвет карточки */
+      --card-border: rgba(255,255,255,0.1); /* Белая полупрозрачная рамка */
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      color: var(--text);
+      background: #000000; /* Полностью черный фон */
+    }
+
+    .card {
+      position: relative; z-index: 10;
+      width: 320px; 
+      background: var(--card-bg); 
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2rem 1.75rem 1.75rem;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.8);
+      animation: cardIn .7s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes cardIn {
+      from { opacity:0; transform:translateY(22px) scale(.97); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+
+    .avatar-wrap {
+      position: relative;
+      width: 88px; height: 88px;
+    }
+    
+    .avatar-ring {
+      position: absolute; inset: -3px; border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .status-dot {
+      position: absolute; bottom: 5px; right: 5px; z-index: 2;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #4ade80;
+      border: 2px solid #0a0a0a;
+    }
+
+    .name { font-size: 1.25rem; font-weight: 600; letter-spacing: -.01em; }
+
+    .divider { width: 100%; height: 1px; background: rgba(255,255,255,.07); }
+
+    .socials { display: flex; gap: .6rem; flex-wrap: wrap; justify-content: center; }
+
+    .social-btn {
+      position: relative;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      background: none;
+      flex-shrink: 0;
+    }
+
+    .btn-face {
+      position: absolute; inset: 0; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    
+    .btn-face svg, .btn-face img { 
+      width: 18px; 
+      height: 18px; 
+      fill: white; 
+      position: relative; 
+      z-index: 1; 
+      transition: transform 0.2s ease-in-out;
+    }
+
+    /* Эффект наведения: уменьшение иконки внутри круга */
+    .social-btn:hover .btn-face svg,
+    .social-btn:hover .btn-face img {
+      transform: scale(0.8);
+    }
+
+    /* Цвета для кнопок */
+    .btn-vk      .btn-face { background: #0077FF; }
+    .btn-discord .btn-face { background: #5865F2; }
+    .btn-tg      .btn-face { background: #2AABEE; }
+    .btn-github  .btn-face { background: #161b22; }
+
+    .notification {
+      position: fixed; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,.2);
+      color: var(--text); font-family: var(--mono); font-size: .68rem;
+      padding: .45rem 1.1rem; border-radius: 6px;
+      opacity: 0; transition: opacity .25s, transform .25s;
+      pointer-events: none; z-index: 1000;
+    }
+    .notification.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <div class="status-dot"></div>
+  </div>
+
+  <h1 class="name">fufuziks &lt;3</h1>
+
+  <div class="divider"></div>
+
+  dildo
+
+  <div class="divider"></div>
+ 
+  <div class="socials">
+
+    <!-- Кнопка GitHub (вставлена ПЕРВОЙ, поэтому она будет ЛЕВЕЕ) -->
+    <a class="social-btn btn-github" href="https://github.com" target="_blank">
+      <div class="btn-face">
+        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </div>
+    </a>
+
+    <!-- Кнопка Discord (идёт второй, поэтому она будет ПРАВЕЕ) -->
+    <button class="social-btn btn-discord" onclick="copyDiscord('puzyanus')">
+      <div class="btn-face">
+        <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.4-5c.87-.64,1.71-1.32,2.51-2a75.52,75.52,0,0,0,72.7,0c.8.7,1.64,1.38,2.51,2a68.43,68.43,0,0,1-10.4,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31.06-18.83C129.5,48,123.4,25.19,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.93,46,53.8,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.17,46,96,53,91,65.69,84.69,65.69Z"/></svg>
+      </div>
+    </button>
+
+  </div>
+
+
+<!-- Всплывающее уведомление для копирования Discord -->
+<div id="copy-toast" class="notification">Никнейм скопирован!</div>
+
+<script>
+  function copyDiscord(username) {
+    navigator.clipboard.writeText(username).then(() => {
+      const toast = document.getElementById('copy-toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
