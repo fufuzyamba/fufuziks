@@ -4,17 +4,102 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>fufuziks</title>
-  <link rel="preconnect" href="https://googleapis.com">
-  <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --mono: 'Roboto Mono', monospace;
-      --text: #e8e8e8;
-      --muted: #666;
-      --card-bg: #0a0a0a; /* Строгий темный цвет карточки */
-      --card-border: rgba(255,255,255,0.1); /* Белая полупрозрачная рамка */
+      --bg: #000000;         /* Черный фон страницы */
+      --card-bg: #0a0a0a;    /* Темная карточка */
+      --card-border: rgba(255, 255, 255, 0.1);
+      --avatar-border: rgba(255, 255, 255, 0.2); /* Полупрозрачная белая рамка */
+      --text: #e8e8e8;       /* Белый текст имени */
+      --text-muted: #666666; /* Серый текст описания */
+      --line-color: rgba(255, 255, 255, 0.1); /* Полупрозрачные полосы */
+    }
+
+      html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      color: var(--text);
+      background: rgb(0, 0, 0); 
+    }
+
+                         
+
+    .card {
+      position: relative;
+      z-index: 10;
+      width: 320px;
+      height: 450px;                             
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;                      
+      padding: 2.5rem 2rem;                     
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 1.2rem;                              
+      box-shadow: 0 8px 48px rgba(0,0,0,0.8);
+      animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;                         
+    }
+
+      @keyframes slide-top {
+      from { opacity:0; transform:translateY(22px) scale(.97); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+
+
+    .avatar-wrap {
+      position: relative;
+      width: 88px; 
+      height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem; 
+    }
+
+    .avatar-ring{
+      position: absolute;
+      width: -4px;
+      border-radius: 50%;
+      border: 1px solid rgb(255, 255, 255, 0.25);
+      z-index: 0;
+    }
+
+
+      .avatar-img {
+      position: absolute; 
+      inset: 0; 
+      z-index: -4px;
+      width: 88px; 
+      height: 88px;
+      border-radius: 50%;       
+      object-fit: cover;        
+      display: block;
+      background: #050505;
+    }
+
+    .name {
+      font-size: 25px;
+
+    }
+     
+    .line {
+      width: 100%;
+      height: 2px;
+      background: var(--line-color);
+      margin: 1px;
+    }
+
+    .mid-text{
+      font-size: 15px;
+      color: rgba(0, 160, 240, 1);
     }
 
     html, body {
@@ -23,150 +108,254 @@
       display: flex; align-items: center; justify-content: center;
       font-family: var(--mono);
       color: var(--text);
-      background: #000000; /* Полностью черный фон */
+      
+      /* ЭФФЕКТ ФОНАРИКА: Синий луч света падает строго сверху вниз и рассеивается */
+      background: radial-gradient(ellipse at top, rgba(0, 119, 255, 0.18) 0%, rgba(0, 0, 0, 0) 65%), #000000;
+      
+      transition: background 0.4s ease; /* Чтобы фон плавно переключался на светлую тему */
     }
 
-    .card {
-      position: relative; z-index: 10;
-      width: 320px; 
-      background: var(--card-bg); 
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 2rem 1.75rem 1.75rem;
-      display: flex; flex-direction: column; align-items: center; gap: 1rem;
-      box-shadow: 0 8px 48px rgba(0,0,0,0.8);
-      animation: cardIn .7s cubic-bezier(.22,1,.36,1) both;
-    }
 
-    @keyframes cardIn {
-      from { opacity:0; transform:translateY(22px) scale(.97); }
-      to   { opacity:1; transform:translateY(0) scale(1); }
-    }
+    /* Стили музыкального плеера */
+.music-player {
+  width: 100%;
+  background: rgba(0,0,0,.5);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px; 
+  padding: .85rem 1rem;
+  display: grid; 
+  grid-template-columns: 44px 1fr auto;
+  gap: .7rem; 
+  align-items: center;
+}
 
-    .avatar-wrap {
-      position: relative;
-      width: 88px; height: 88px;
-    }
-    
-    .avatar-ring {
-      position: absolute; inset: -3px; border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
 
-    .status-dot {
-      position: absolute; bottom: 5px; right: 5px; z-index: 2;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: #4ade80;
-      border: 2px solid #0a0a0a;
-    }
 
-    .name { font-size: 1.25rem; font-weight: 600; letter-spacing: -.01em; }
 
-    .divider { width: 100%; height: 1px; background: rgba(255,255,255,.07); }
 
-    .socials { display: flex; gap: .6rem; flex-wrap: wrap; justify-content: center; }
+.track-title { 
+  font-size: .76rem; 
+  font-weight: 500; 
+  color: var(--text); 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
 
-    .social-btn {
-      position: relative;
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      overflow: hidden;
-      cursor: pointer;
-      text-decoration: none;
-      border: none;
-      background: none;
-      flex-shrink: 0;
-    }
+.track-artist { 
+  font-size: .65rem; 
+  color: var(--muted); 
+  margin-top: .1rem; 
+}
 
-    .btn-face {
-      position: absolute; inset: 0; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-    }
-    
-    .btn-face svg, .btn-face img { 
-      width: 18px; 
-      height: 18px; 
-      fill: white; 
-      position: relative; 
-      z-index: 1; 
-      transition: transform 0.2s ease-in-out;
-    }
+.track-artist a { 
+  color: var(--muted); 
+  text-decoration: none; 
+  transition: color .2s; 
+}
 
-    /* Эффект наведения: уменьшение иконки внутри круга */
-    .social-btn:hover .btn-face svg,
-    .social-btn:hover .btn-face img {
-      transform: scale(0.8);
-    }
+.track-artist a:hover { 
+  color: var(--text); 
+}
 
-    /* Цвета для кнопок */
-    .btn-vk      .btn-face { background: #0077FF; }
-    .btn-discord .btn-face { background: #5865F2; }
-    .btn-tg      .btn-face { background: #2AABEE; }
-    .btn-github  .btn-face { background: #161b22; }
+.progress-container { 
+  display: flex; 
+  align-items: center; 
+  gap: .35rem; 
+  margin-top: .45rem; 
+}
 
-    .notification {
-      position: fixed; bottom: 1.5rem; left: 50%;
-      transform: translateX(-50%) translateY(8px);
-      background: #0a0a0a;
-      border: 1px solid rgba(255,255,255,.2);
-      color: var(--text); font-family: var(--mono); font-size: .68rem;
-      padding: .45rem 1.1rem; border-radius: 6px;
-      opacity: 0; transition: opacity .25s, transform .25s;
-      pointer-events: none; z-index: 1000;
-    }
-    .notification.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.time-label { 
+  font-size: .57rem; 
+  color: #e95151; 
+  min-width: 26px; 
+}
+
+.time-label.right { 
+  text-align: right; 
+}
+
+.progress-bar { 
+  flex: 1; 
+  height: 3px; 
+  background: rgba(199, 102, 102, 0.1); 
+  border-radius: 2px; 
+  cursor: pointer; 
+}
+
+.progress-fill { 
+  height: 100%; 
+  background: linear-gradient(90deg,#f5c842,#e07c3a); 
+  border-radius: 2px; 
+  width: 0%; 
+  transition: width .3s linear; 
+}
+
+.controls { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: .45rem; 
+}
+
+.play-btn {
+  background: rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(165, 58, 58, 0.18);
+  border-radius: 50%; 
+  width: 32px; 
+  height: 32px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  cursor: pointer; 
+  color: var(--text);
+  transition: background .2s, border-color .2s;
+}
+
+.play-btn:hover { 
+  background: rgba(235, 40, 40, 0.15); 
+  border-color: #ff0000; 
+}
+
+.play-btn svg { 
+  width: 13px; 
+  height: 13px; 
+  fill: currentColor; 
+}
+
+.vol-slider {
+  -webkit-appearance: none; 
+  appearance: none;
+  width: 48px; 
+  height: 3px;
+  background: rgba(233, 125, 125, 0.1); 
+  border-radius: 2px; 
+  outline: none;
+}
+
+.vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 9px; 
+  height: 9px;
+  border-radius: 35%; 
+  background: #291b1b; 
+  cursor: pointer;
+}
+
+audio { display: none; }
+
+
+
   </style>
 </head>
 <body>
-
-<div class="card">
   
+  <div class="card">
+ 
+    
   <div class="avatar-wrap">
     <div class="avatar-ring"></div>
-    <div class="status-dot"></div>
+    <img class="avatar-img" src="data:image/jpeg;base64,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">
   </div>
 
-  <h1 class="name">fufuziks &lt;3</h1>
+    <h1 class="name">fufuziks</h1>
 
-  <div class="divider"></div>
 
-  dildo
+    <div class="line"></div>
+    <!-- Текст посередине -->
+    <p class="mid-text">даже елси ты толстый то никогда об этом не переживай ведь животик это всегда хорошо</p>
+    <!-- Нижняя линия -->
+    <div class="line"></div>
 
-  <div class="divider"></div>
- 
-  <div class="socials">
+<div class="music-player">
+  <div class="cover-art">
 
-    <!-- Кнопка GitHub (вставлена ПЕРВОЙ, поэтому она будет ЛЕВЕЕ) -->
-    <a class="social-btn btn-github" href="https://github.com" target="_blank">
-      <div class="btn-face">
-        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+  </div>
+
+  <div class="track-info">
+    <div class="track-title">sigma</div>
+    <div class="track-artist"><a href="#" target="_blank">fufuziks</a></div>
+    <div class="progress-container">
+      <span class="time-label" id="cur-time">00:00</span>
+      <div class="progress-bar" id="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
       </div>
-    </a>
+      <span class="time-label right" id="tot-time">00:00</span>
+    </div>
+  </div>
 
-    <!-- Кнопка Discord (идёт второй, поэтому она будет ПРАВЕЕ) -->
-    <button class="social-btn btn-discord" onclick="copyDiscord('puzyanus')">
-      <div class="btn-face">
-        <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.4-5c.87-.64,1.71-1.32,2.51-2a75.52,75.52,0,0,0,72.7,0c.8.7,1.64,1.38,2.51,2a68.43,68.43,0,0,1-10.4,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31.06-18.83C129.5,48,123.4,25.19,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.93,46,53.8,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.17,46,96,53,91,65.69,84.69,65.69Z"/></svg>
-      </div>
+  <div class="controls">
+    <button class="play-btn" onclick="togglePlay()">
+      <svg id="play-icon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      <svg id="pause-icon" viewBox="0 0 24 24" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
     </button>
-
+    <input type="range" class="vol-slider" min="0" max="100" value="50" oninput="setVol(this.value)">
   </div>
+</div>
 
-
-<!-- Всплывающее уведомление для копирования Discord -->
-<div id="copy-toast" class="notification">Никнейм скопирован!</div>
-
+<audio id="audio" src="sigma.mp3"></audio>
 <script>
-  function copyDiscord(username) {
-    navigator.clipboard.writeText(username).then(() => {
-      const toast = document.getElementById('copy-toast');
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2000);
-    });
-  }
-</script>
 
-</body>
+
+  // Основные функции управления плеером
+const audio = document.getElementById('audio');
+const fill = document.getElementById('progress-fill');
+const curEl = document.getElementById('cur-time');
+const totEl = document.getElementById('tot-time');
+const playI = document.getElementById('play-icon');
+const pauseI = document.getElementById('pause-icon');
+const bar = document.getElementById('progress-bar');
+
+function fmt(t) {
+  const m = Math.floor(t / 60);
+  const s = Math.floor(t % 60);
+  return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+function togglePlay() {
+  if (!audio.src || audio.src === window.location.href) {
+    notify('Добавь mp3 в <audio src="">');
+    return;
+  }
+  if (audio.paused) {
+    audio.play();
+    playI.style.display = 'none';
+    pauseI.style.display = 'block';
+  } else {
+    audio.pause();
+    playI.style.display = 'block';
+    pauseI.style.display = 'none';
+  }
+}
+
+function setVol(v) {
+  audio.volume = v / 100;
+}
+
+// События аудио
+audio.addEventListener('loadedmetadata', () => {
+  totEl.textContent = fmt(audio.duration);
+});
+
+audio.addEventListener('timeupdate', () => {
+  curEl.textContent = fmt(audio.currentTime);
+  fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+});
+
+audio.addEventListener('ended', () => {
+  playI.style.display = 'block';
+  pauseI.style.display = 'none';
+  fill.style.width = '0%';
+  curEl.textContent = '00:00';
+});
+
+// Клик по прогресс-бару для перемотки
+bar.addEventListener('click', e => {
+  if (!audio.duration) return;
+  const r = bar.getBoundingClientRect();
+  audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+});
+</script>
+  
+    </body>
 </html>
