@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>fufuziks</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://googleapis.com">
+  <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,37 +14,37 @@
       --bg: #000000;         
       --card-bg: #0a0a0a;    
       --card-border: rgba(255, 255, 255, 0.1);
-      --avatar-border: rgba(255, 255, 255, 0.2); 
       --text: #e8e8e8;       
       --text-muted: #666666;
       --line-color: rgba(255, 255, 255, 0.1); 
+      --accent:#8a9e9b;
+      --bio-color: gold; 
     }
 
     body.light-theme {
-    --bg: #f5f5f7;
-    --card-bg: #ffffff;
-    --card-border: rgba(0, 0, 0, 0.08) ;
-    --avatar-border: rgba(255, 255, 255, 0.2) ;
-    --text: #1d1d1f ;
-    --text-muted: #86868b ;
-    --line-color: rgba(0, 0, 0, 0.08) ; 
-    background: rgb(255 255 255);
-    background: radial-gradient(ellipse at top, rgb(22, 74, 187) 0%, rgba(0, 0, 0, 0) 65%), #fdfafa;
-
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --card-border: rgba(0, 0, 0, 0.08);
+      --text: #1d1d1f;
+      --text-muted: #86868b;
+      --line-color: rgba(0, 0, 0, 0.08); 
+      --bio-color: #000000; 
     }
 
 
-
-      html, body {
+    html, body {
       width: 100%; height: 100%;
       overflow: hidden;
       display: flex; align-items: center; justify-content: center;
       font-family: var(--mono);
       color: var(--text);
-      background: rgb(0, 0, 0); 
+      background: radial-gradient(ellipse at top, rgba(0, 119, 255, 0.18) 0%, rgba(0, 0, 0, 0) 65%), var(--bg);
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-                         
+    body.light-theme {
+      background: radial-gradient(ellipse at top, rgb(22, 74, 187) 0%, rgba(0, 0, 0, 0) 65%), var(--bg);
+    }
 
     .card {
       position: relative;
@@ -62,74 +62,12 @@
       animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;                         
     }
 
-      @keyframes slide-top {
-      from { opacity:0; transform:translateY(22px) scale(.97); }
-      to   { opacity:1; transform:translateY(0) scale(1); }
+    @keyframes slide-top {
+      from { opacity: 0; transform: translateY(22px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-
-    .avatar-wrap {
-      position: relative;
-      width: 88px; 
-      height: 88px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.5rem; 
-    }
-
-    .avatar-ring{
-      position: absolute;
-      width: -4px;
-      border-radius: 50%;
-      border: 1px solid rgb(255, 255, 255, 0.25);
-      z-index: 0;
-    }
-
-
-      .avatar-img {
-      position: absolute; 
-      inset: 0; 
-      z-index: -4px;
-      width: 88px; 
-      height: 88px;
-      border-radius: 50%;       
-      object-fit: cover;        
-      display: block;
-      background: #050505;
-    }
-
-    .name {
-      font-size: 25px;
-
-    }
-     
-    .line {
-      width: 100%;
-      height: 2px;
-      background: var(--line-color);
-      margin: 1px;
-    }
-
-    .mid-text{
-      font-size: 15px;
-      color: rgba(0, 160, 240, 1);
-    }
-
-    html, body {
-      width: 100%; height: 100%;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono);
-      color: var(--text);
-      
-
-      background: radial-gradient(ellipse at top, rgba(0, 119, 255, 0.18) 0%, rgba(0, 0, 0, 0) 65%), #000000;
-      
-
-    }
-
-      .theme-toggle {
+    .theme-toggle {
       position: absolute;
       top: 18px;
       right: 18px;
@@ -144,158 +82,135 @@
       justify-content: center;
     }
 
-
-      .theme-toggle svg {
+    .theme-toggle svg {
       width: 100%;
       height: 100%;
       fill: var(--text); 
       transition: transform 0.2s ease, fill 0.3s ease;
     }
 
-      .theme-toggle:hover svg {
+    .theme-toggle:hover svg {
       transform: rotate(15deg) scale(1.1);
     }
 
-    
 
-
-.music-player {
-  width: 100%;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  backdrop-filter: blur(10px);
-  border-radius: 10px; 
-  padding: .85rem 1rem;
-  display: grid; 
-  grid-template-columns: 44px 1fr auto;
-  gap: .7rem; 
-  align-items: center;
-}
-
-
-
-
-
-.track-title { 
-  font-size: .76rem; 
-  font-weight: 500; 
-  color: var(--text); 
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-}
-
-.track-artist { 
-  font-size: .65rem; 
-  color: var(--muted); 
-  margin-top: .1rem; 
-}
-
-.track-artist a { 
-  color: var(--muted); 
-  text-decoration: none; 
-  transition: color .2s; 
-}
-
-.track-artist a:hover { 
-  color: var(--text); 
-}
-
-.progress-container { 
-  display: flex; 
-  align-items: center; 
-  gap: .35rem; 
-  margin-top: .45rem; 
-}
-
-.time-label { 
-  font-size: .57rem; 
-  color: #e95151; 
-  min-width: 26px; 
-}
-
-.time-label.right { 
-  text-align: right; 
-}
-
-.progress-bar { 
-  flex: 1; 
-  height: 3px; 
-  background: rgba(199, 102, 102, 0.1); 
-  border-radius: 2px; 
-  cursor: pointer; 
-}
-
-.progress-fill { 
-  height: 100%; 
-  background: linear-gradient(90deg,#f5c842,#e07c3a); 
-  border-radius: 2px; 
-  width: 0%; 
-  transition: width .3s linear; 
-}
-
-.controls { 
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  gap: .45rem; 
-}
-
-.play-btn {
-  background: rgba(0, 0, 0, 0.07);
-  border: 1px solid rgba(165, 58, 58, 0.18);
-  border-radius: 50%; 
-  width: 32px; 
-  height: 32px;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  cursor: pointer; 
-  color: var(--text);
-  transition: background .2s, border-color .2s;
-}
-
-.play-btn:hover { 
-  background: rgba(235, 40, 40, 0.15); 
-  border-color: #ff0000; 
-}
-
-.play-btn svg { 
-  width: 13px; 
-  height: 13px; 
-  fill: currentColor; 
-}
-
-.vol-slider {
-  -webkit-appearance: none; 
-  appearance: none;
-  width: 48px; 
-  height: 3px;
-  background: rgba(233, 125, 125, 0.1); 
-  border-radius: 2px; 
-  outline: none;
-}
-
-.vol-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 9px; 
-  height: 9px;
-  border-radius: 35%; 
-  background: #291b1b; 
-  cursor: pointer;
-}
-
-audio { display: none; }
-
-
-    .social-row {
-         display: flex;            
-         justify-content: center;  
-         gap: 12px;                
-         margin-top: 15px;        
+    .title-path{
+        display: flex;
+        font-size: 20px;
     }
 
-        .icon-btn {
+
+
+    .avatar-wrap {
+        position: relative;
+        width: 88px;
+        height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.5rem; 
+    }
+
+
+    .avatar-wrap {
+        position: relative;
+        width: 88px;
+        height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.5rem; 
+    }
+
+        body.light-theme .avatar-ring {
+        border-color: rgba(0, 0, 0, 0.15);
+    }
+
+
+    .avatar-img {
+        position: absolute; 
+        inset: 0; 
+        width: 100%; 
+        height: 100%;
+        border-radius: 9px;       
+        object-fit: cover;        
+        display: block;
+        background: #050505;
+        left: -100%
+    }
+
+     .avatar-img2 {
+        position: absolute; 
+        inset: 0; 
+        width: 100%; 
+        height: 100%;
+        border-radius: 9px;       
+        object-fit: cover;        
+        display: block;
+        background: #050505;
+        left: 100%
+    }
+
+
+
+    .avatar-img3 {
+        inset: 0; 
+        width: 100%; 
+        height: 100%;
+        border-radius: 9px;       
+        object-fit: cover;        
+        background: #050505;
+        display:flex;
+        align-items: center;
+        
+    }
+
+
+    .bio {
+        font-size: 15px;
+        color: var(--bio-color); 
+        transition: color 0.3s ease;
+    }
+
+        .dots {
+        display: flex;
+        gap: 6px;
+        position: absolute;
+        top: 18px;
+        left: 18px; 
+    }
+
+    .dots span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%; 
+        display: inline-block;
+    }
+
+    .dots span:nth-child(1) { background: #ff5f56; } 
+    .dots span:nth-child(2) { background: #ffbd2e; } 
+    .dots span:nth-child(3) { background: #27c93f; } 
+
+
+
+    .title-dath{
+        font-size: 15px;
+        color: #5c6670 
+    }
+
+
+    .links{
+        display: flex;            
+         justify-content: center;  
+         gap: 12px;                
+         margin-top: 15px;     
+         
+    }
+
+
+    .icon-btn{
+        width: 44px;
+        height: 44px;
          width: 44px;              
          height: 44px;             
          border-radius: 50%;      
@@ -331,63 +246,63 @@ audio { display: none; }
 }
 
 
+
+  .cursor{
+    display: flex;
+    margin-left: 10px;
+    width:3px;height:1em;
+    background:var(--accent);
+    animation:blink 1.1s step-end infinite;
+    
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+
+
+
+
+
+
+
+
+
+
+
+
   </style>
 </head>
 <body>
   
   <div class="card">
- 
-    
+
+
+  <div class="title-dath">~/fufuziks/death</div>
   <div class="avatar-wrap">
     <div class="avatar-ring"></div>
-    <img class="avatar-img" src="data:image/jpeg;base64,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">
-  </div>
+    <img class="avatar-img3" src="https://i.pinimg.com/736x/9f/b2/2e/9fb22e6864d97e911556cdab466903a3.jpg">
 
-    <h1 class="name">fufuziks</h1>
-
-
-    <div class="line"></div>
-   
-    <p class="mid-text">даже если ты толстый то никогда об этом не переживай ведь животик это всегда хорошо</p>
-
-    <div class="line"></div>
-
-<div class="music-player">
-  <div class="cover-art">
 
   </div>
 
-  <div class="track-info">
-    <div class="track-title">sigma</div>
-    <div class="track-artist"><a href="#" target="_blank">fufuziks</a></div>
-    <div class="progress-container">
-      <span class="time-label" id="cur-time">00:00</span>
-      <div class="progress-bar" id="progress-bar">
-        <div class="progress-fill" id="progress-fill"></div>
-      </div>
-      <span class="time-label right" id="tot-time">00:00</span>
-    </div>
-  </div>
 
-  <div class="controls">
-    <button class="play-btn" onclick="togglePlay()">
-      <svg id="play-icon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-      <svg id="pause-icon" viewBox="0 0 24 24" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+     <div class="dots"><span></span><span></span><span></span></div>
+    <div class="title-path">fufuziks<span class="cursor"></span></div>
+    <button class="theme-toggle" onclick="document.body.classList.toggle('light-theme')" aria-label="Переключить тему">
+      <svg viewBox="0 0 24 24">
+        <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/>
+      </svg>
     </button>
-    <input type="range" class="vol-slider" min="0" max="100" value="50" oninput="setVol(this.value)">
-  </div>
-</div>
 
-<audio id="audio" src="sigma.mp3"></audio>
+    
 
-    <div class="social-row">
 
-      <!-- Discord -->
-      <button class="icon-btn discord-color" onclick="copyDiscord('puzyanus')">
-        <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.4-5c.87-.64,1.71-1.32,2.51-2a75.52,75.52,0,0,0,72.7,0c.8.7,1.64,1.38,2.51,2a68.43,68.43,0,0,1-10.4,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31.06-18.83C129.5,48,123.4,25.19,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.93,46,53.8,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.17,46,96,53,91,65.69,84.69,65.69Z"/></svg>
-      </button>
+    <div class="body">
+        <div class="bio"></p>vassola alekum</p>
+        <div class="gavno"></div>
+    </div>
 
-      <!-- GitHub -->
+    <div class="links">
+          <!-- GitHub -->
       <a class="icon-btn github-color" href="https://github.com/fufuzyamba" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
       </a>
@@ -397,84 +312,12 @@ audio { display: none; }
       <a class="icon-btn soundclaude-color" href="https://soundcloud.com/fufuziks" target="_blank">
         <svg viewBox="0 0 512 512"><path d="M25.173,355.106c1.076,0,1.946-0.849,2.117-2.067l5.717-44.884l-5.717-45.889   c-0.171-1.22-1.041-2.061-2.117-2.061c-1.091,0-1.982,0.862-2.125,2.061c0,0.007-5.026,45.889-5.026,45.889l5.026,44.876   C23.191,354.229,24.083,355.106,25.173,355.106z M8.328,336.058c0,0,0,0,0,0.007l0,0V336.058z M6.274,338.047   c1.041,0,1.875-0.813,2.053-1.982l4.42-27.909l-4.42-28.395c-0.171-1.169-1.012-1.981-2.053-1.981   c-1.062,0-1.896,0.819-2.046,1.996L0.5,308.155l3.729,27.896C4.378,337.227,5.212,338.047,6.274,338.047z M47.808,253.712   c-0.157-1.454-1.233-2.51-2.56-2.51c-1.354,0-2.424,1.063-2.566,2.51l-4.762,54.45l4.762,52.455   c0.143,1.461,1.212,2.509,2.566,2.509c1.326,0,2.402-1.048,2.552-2.495l5.425-52.469L47.808,253.712z M65.487,365.236   c1.568,0,2.852-1.269,3.001-2.944l0,0l5.119-54.123l-5.119-55.947c-0.149-1.675-1.433-2.944-3.001-2.944   c-1.583,0-2.873,1.27-3.001,2.951l-4.513,55.94l4.513,54.123C62.614,363.968,63.904,365.236,65.487,365.236z M85.89,366.127   c1.825,0,3.301-1.461,3.436-3.386l-0.007,0.007l4.827-54.571l-4.827-51.913c-0.128-1.918-1.604-3.372-3.429-3.372   c-1.839,0-3.315,1.454-3.429,3.387l-4.256,51.898l4.256,54.564C82.575,364.666,84.051,366.127,85.89,366.127z M114.848,308.198   l-4.527-84.436c-0.114-2.152-1.811-3.828-3.864-3.828s-3.764,1.676-3.864,3.828l-4,84.436l4,54.564   c0.1,2.124,1.811,3.813,3.864,3.813s3.75-1.689,3.864-3.828v0.015L114.848,308.198z M127.195,366.677   c2.303,0,4.185-1.868,4.299-4.264v0.036l4.228-54.244l-4.228-103.74c-0.114-2.395-1.996-4.27-4.299-4.27   c-2.317,0-4.213,1.875-4.313,4.27c0,0.008-3.735,103.74-3.735,103.74l3.743,54.229   C122.982,364.809,124.878,366.677,127.195,366.677z M148.09,191.112c-2.574,0-4.655,2.067-4.748,4.705   c0,0.008-3.472,112.402-3.472,112.402l3.479,53.666c0.085,2.616,2.167,4.677,4.741,4.677c2.552,0,4.641-2.061,4.741-4.698v0.036   l3.928-53.681l-3.928-112.409C152.73,193.173,150.642,191.112,148.09,191.112z M169.156,366.669c2.809,0,5.083-2.26,5.175-5.14   v0.035l3.622-53.338l-3.622-116.188c-0.093-2.887-2.366-5.146-5.175-5.146c-2.823,0-5.097,2.26-5.183,5.146l-3.223,116.188   l3.223,53.331C164.059,364.409,166.333,366.669,169.156,366.669z M190.378,366.619c3.065,0,5.532-2.452,5.611-5.589v0.043   l3.336-52.84l-3.336-113.229c-0.079-3.129-2.546-5.582-5.611-5.582c-3.072,0-5.546,2.46-5.617,5.582l-2.958,113.229l2.965,52.825   C184.832,364.167,187.306,366.619,190.378,366.619z M220.848,308.248l-3.03-109.108c-0.071-3.372-2.73-6.017-6.045-6.017   c-3.329,0-5.988,2.645-6.053,6.024l-2.702,109.093l2.702,52.49c0.064,3.344,2.724,5.988,6.053,5.988   c3.314,0,5.974-2.645,6.045-6.023v0.043L220.848,308.248z M233.33,366.826c3.515,0,6.423-2.901,6.48-6.466v0.043l2.737-52.148   l-2.737-129.824c-0.058-3.558-2.966-6.459-6.48-6.459c-3.521,0-6.431,2.901-6.487,6.459l-2.445,129.781   c0,0.079,2.445,52.184,2.445,52.184C226.899,363.925,229.809,366.826,233.33,366.826z M254.788,159.767   c-3.771,0-6.872,3.108-6.93,6.908l-2.83,141.595l2.83,51.385c0.058,3.75,3.158,6.851,6.93,6.851c3.764,0,6.865-3.101,6.922-6.9   v0.057l3.08-51.392l-3.08-141.602C261.653,162.875,258.552,159.767,254.788,159.767z M274.428,366.861   c0.157,0.015,173.098,0.101,174.224,0.101c34.718,0,62.849-28.146,62.849-62.863s-28.131-62.849-62.849-62.849   c-8.618,0-16.824,1.74-24.31,4.877c-4.997-56.646-52.512-101.089-110.448-101.089c-14.179,0-28.002,2.795-40.207,7.521   c-4.74,1.832-6.01,3.729-6.052,7.386c0,0.007,0,199.488,0,199.488C267.685,363.283,270.671,366.491,274.428,366.861z"></svg>
         </a>
-
-        <!--white themes-->
-
-        <button class="theme-toggle" onclick="toggleTheme()">
-      <svg viewBox="0 0 24 24">
-        <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg> 
-      </svg>
-    </button>
-
-<script>
+    </div>
 
 
 
-const audio = document.getElementById('audio');
-const fill = document.getElementById('progress-fill');
-const curEl = document.getElementById('cur-time');
-const totEl = document.getElementById('tot-time');
-const playI = document.getElementById('play-icon');
-const pauseI = document.getElementById('pause-icon');
-const bar = document.getElementById('progress-bar');
 
-function fmt(t) {
-  const m = Math.floor(t / 60);
-  const s = Math.floor(t % 60);
-  return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
-}
+  </div>
 
-function togglePlay() {
-  if (!audio.src || audio.src === window.location.href) {
-    notify('Добавь mp3 в <audio src="">');
-    return;
-  }
-  if (audio.paused) {
-    audio.play();
-    playI.style.display = 'none';
-    pauseI.style.display = 'block';
-  } else {
-    audio.pause();
-    playI.style.display = 'block';
-    pauseI.style.display = 'none';
-  }
-}
-
-function setVol(v) {
-  audio.volume = v / 100;
-}
-
-
-audio.addEventListener('loadedmetadata', () => {
-  totEl.textContent = fmt(audio.duration);
-});
-
-audio.addEventListener('timeupdate', () => {
-  curEl.textContent = fmt(audio.currentTime);
-  fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
-});
-
-audio.addEventListener('ended', () => {
-  playI.style.display = 'block';
-  pauseI.style.display = 'none';
-  fill.style.width = '0%';
-  curEl.textContent = '00:00';
-});
-
-
-bar.addEventListener('click', e => {
-  if (!audio.duration) return;
-  const r = bar.getBoundingClientRect();
-  audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
-});
-
-
-    function toggleTheme() {
-      document.body.classList.toggle('light-theme');
-    }
-
-
-</script>
-  
-    </body>
+</body>
 </html>
